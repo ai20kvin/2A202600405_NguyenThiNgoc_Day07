@@ -119,8 +119,9 @@ Chạy `ChunkingStrategyComparator().compare()` trên 2-3 tài liệu:
 | Thành viên | Strategy | Retrieval Score (/10) | Điểm mạnh | Điểm yếu |
 |-----------|----------|----------------------|-----------|----------|
 | Tôi (Nguyễn Thị Ngọc) | SentenceChunker | 9/10 | Preserve context tốt, ít chunks | Chunk dài hơn, cost embedding cao |
-| Vũ Đức Minh | RecursiveChunker (chunk_size=800) | 8.5 | Tôn trọng cấu trúc markdown, giữ ngữ cảnh pháp lý, avg length consistent 636 ký tự | Chunk count cao, có thể chậm hơn với tài liệu rất lớn |
-| Thành viên khác | Custom chunking theo topic/section | 8 | Phù hợp với nội dung bài luật, giữ nguyên điều khoản | Phức tạp hơn khi hiện thực và dễ tạo chunk quá dài |
+| Vũ Đức Minh | RecursiveChunker (chunk_size=800) | 8.5 | Tôn trọng cấu trúc markdown, giữ ngữ cảnh pháp lý, avg length consistent 636 ký tự | Chunk count cao (47 vs 40), có thể chậm hơn với tài liệu rất lớn |
+| Nguyen Viet Quang | LegalArticleChunker (`legal_article`) | 7.5 / 10 | Giữ trọn vẹn ngữ cảnh theo từng Điều luật, phù hợp khi câu hỏi cần đầy đủ các Khoản và Điểm liên quan trong cùng một Điều. | Chunk quá dài, số lượng chunk ít nên embedding bị loãng; đã thể hiện rõ ở query về chấm thi khi hệ thống retrieve nhầm tài liệu. |
+| Nguyen Trong Tiến | CustomChunker (legal-aware hybrid) | 8 | Overlap theo khoản, không cắt giữa điều luật | Nhiều chunk hơn RecursiveChunker |
 
 **Strategy nào tốt nhất cho domain này? Tại sao?**
 > SentenceChunker tốt nhất vì domain education_policy có nhiều quy định với câu dài, cần preserve context. RecursiveChunker over-split thành chunks quá nhỏ, kém hiệu quả.
