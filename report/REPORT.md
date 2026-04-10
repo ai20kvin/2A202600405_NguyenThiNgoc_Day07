@@ -50,22 +50,23 @@
 
 | # | Tên tài liệu | Nguồn | Số ký tự | Metadata đã gán |
 |---|--------------|-------|----------|-----------------|
-| 1 | 01_quy_dinh_chung.md | Local | 5689 | category: quy_dinh, source: local, language: vi |
-| 2 | 02_ban_chi_dao_hoi_dong.md | Local | 13686 | category: quy_dinh, source: local, language: vi |
-| 3 | 03_diem_thi_phong_thi.md | Local | 8420 | category: quy_dinh, source: local, language: vi |
-| 4 | 04_doi_tuong_dieu_kien.md | Local | 11514 | category: quy_dinh, source: local, language: vi |
-| 5 | 05_trach_nhiem_thi_sinh.md | Local | 10925 | category: quy_dinh, source: local, language: vi |
-| 6 | 06_cong_tac_de_thi.md | Local | 17122 | category: quy_dinh, source: local, language: vi |
-| 7 | 07_in_sao_van_chuyen_de.md | Local | 8407 | category: quy_dinh, source: local, language: vi |
-| 8 | 08_coi_thi.md | Local | 19706 | category: quy_dinh, source: local, language: vi |
-| 9 | 09_cham_thi.md | Local | 39471 | category: quy_dinh, source: local, language: vi |
-| 10 | 10_phuc_khao_tot_nghiep.md | Local | 69890 | category: quy_dinh, source: local, language: vi |
+| 1 | 01_quy_dinh_chung.md | Local | 5689 | category: quy_dinh, topic: general_rules, source: local, language: vi |
+| 2 | 02_ban_chi_dao_hoi_dong.md | Local | 13686 | category: quy_dinh, topic: governance, source: local, language: vi |
+| 3 | 03_diem_thi_phong_thi.md | Local | 8420 | category: quy_dinh, topic: grading_policy, source: local, language: vi |
+| 4 | 04_doi_tuong_dieu_kien.md | Local | 11514 | category: quy_dinh, topic: eligibility, source: local, language: vi |
+| 5 | 05_trach_nhiem_thi_sinh.md | Local | 10925 | category: quy_dinh, topic: candidate_responsibility, source: local, language: vi |
+| 6 | 06_cong_tac_de_thi.md | Local | 17122 | category: quy_dinh, topic: exam_administration, source: local, language: vi |
+| 7 | 07_in_sao_van_chuyen_de.md | Local | 8407 | category: quy_dinh, topic: logistics, source: local, language: vi |
+| 8 | 08_coi_thi.md | Local | 19706 | category: quy_dinh, topic: supervision, source: local, language: vi |
+| 9 | 09_cham_thi.md | Local | 39471 | category: quy_dinh, topic: grading_practice, source: local, language: vi |
+| 10 | 10_phuc_khao_tot_nghiep.md | Local | 69890 | category: quy_dinh, topic: rechecking, source: local, language: vi |
 
 ### Metadata Schema
 
 | Trường metadata | Kiểu | Ví dụ giá trị | Tại sao hữu ích cho retrieval? |
 |----------------|------|---------------|-------------------------------|
-| category | string | quy_dinh | Phân loại tất cả là quy định giáo dục |
+| category | string | quy_dinh | Phân loại domain chính sách thi cử |
+| topic | string | supervision, grading_policy, rechecking | Tách nội dung chi tiết hơn để filter theo chủ đề |
 | source | string | local | Xác định nguồn gốc tài liệu |
 | language | string | vi | Hỗ trợ filter ngôn ngữ tiếng Việt |
 
@@ -111,16 +112,15 @@ Chạy `ChunkingStrategyComparator().compare()` trên 2-3 tài liệu:
 | 01_quy_dinh_chung | best baseline (Sentence) | 11 | 398.3 | High - same as mine |
 | 02_ban_chi_dao_hoi_dong | best baseline (Sentence) | 10 | 1026.7 | High - same as mine |
 | 09_cham_thi | best baseline (Sentence) | 44 | 678.7 | High - same as mine |
-| | **SentenceChunker (mine)** | ~22 avg | ~701 avg | High - preserves sentence context, avoids over-splitting |
+| | **SentenceChunker (mine)** | same as baseline | same as baseline | High - preserves sentence context, avoids over-splitting |
 
 ### So Sánh Với Thành Viên Khác
 
 | Thành viên | Strategy | Retrieval Score (/10) | Điểm mạnh | Điểm yếu |
 |-----------|----------|----------------------|-----------|----------|
 | Tôi (Nguyễn Thị Ngọc) | SentenceChunker | 9/10 | Preserve context tốt, ít chunks | Chunk dài hơn, cost embedding cao |
-| Vũ Đức Minh | RecursiveChunker (chunk_size=800) | 8.5 | Tôn trọng cấu trúc markdown, giữ ngữ cảnh pháp lý, avg length consistent 636 ký tự | Chunk count cao (47 vs 40), có thể chậm hơn với tài liệu rất lớn |
-| Nguyen Trong Tien| CustomChunker (legal-aware hybrid) | 8 | Overlap theo khoản, không cắt giữa điều luật | Nhiều chunk hơn RecursiveChunker |
-| Nguyen Viet Quang | LegalArticleChunker (`legal_article`) | 7.5 / 10 | Giữ trọn vẹn ngữ cảnh theo từng Điều luật, phù hợp khi câu hỏi cần đầy đủ các Khoản và Điểm liên quan trong cùng một Điều. | Chunk quá dài, số lượng chunk ít nên embedding bị loãng; đã thể hiện rõ ở query về chấm thi khi hệ thống retrieve nhầm tài liệu. |
+| Vũ Đức Minh | RecursiveChunker (chunk_size=800) | 8.5 | Tôn trọng cấu trúc markdown, giữ ngữ cảnh pháp lý, avg length consistent 636 ký tự | Chunk count cao, có thể chậm hơn với tài liệu rất lớn |
+| Thành viên khác | Custom chunking theo topic/section | 8 | Phù hợp với nội dung bài luật, giữ nguyên điều khoản | Phức tạp hơn khi hiện thực và dễ tạo chunk quá dài |
 
 **Strategy nào tốt nhất cho domain này? Tại sao?**
 > SentenceChunker tốt nhất vì domain education_policy có nhiều quy định với câu dài, cần preserve context. RecursiveChunker over-split thành chunks quá nhỏ, kém hiệu quả.
@@ -214,6 +214,7 @@ Chạy 5 benchmark queries của nhóm trên implementation cá nhân của bạ
 
 - Mức retrieval hiện tại là trung bình: nhiều truy vấn trả về tài liệu liên quan chung, nhưng không phải luôn đúng với truy vấn cụ thể.
 - Top-3 thường bao gồm các tài liệu lớn như `09_cham_thi.md` và `10_phuc_khao_tot_nghiep.md`, nhưng một số query cần nội dung cụ thể hơn (ví dụ Query 2 và Query 5).
+- Vì tất cả tài liệu đều dùng `category=quy_dinh`, việc filter theo category không thay đổi kết quả; để nâng retrieval cần metadata chi tiết hơn như `topic` hoặc `section`.
 - Agent answer hiện tại chỉ là demo mock; để đánh giá thực chất cần kết nối LLM thực tế và verify context retrieved.
 
 ---
