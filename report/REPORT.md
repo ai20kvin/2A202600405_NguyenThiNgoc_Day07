@@ -192,23 +192,23 @@ Chạy 5 benchmark queries của nhóm trên implementation cá nhân của bạ
 
 | # | Query | Gold Answer |
 |---|-------|-------------|
-| 1 | Quy định chung về thi cử là gì? | Quy định chung bao gồm các nguyên tắc tổ chức thi, quyền và nghĩa vụ của các bên tham gia, đảm bảo công bằng và minh bạch. |
-| 2 | Trách nhiệm của thí sinh trong kỳ thi? | Thí sinh phải tuân thủ quy định, không vi phạm quy chế thi, mang theo giấy tờ cần thiết, và chấp hành hướng dẫn của giám thị. |
-| 3 | Cách chấm thi như thế nào? | Chấm thi theo thang điểm quy định, có giám khảo chấm độc lập, đảm bảo khách quan và chính xác. |
-| 4 | Điều kiện để phúc khảo bài thi? | Phúc khảo trong thời hạn 10 ngày kể từ khi công bố kết quả, với lý do cụ thể và bằng chứng. |
-| 5 | Công tác coi thi được quy định ra sao? | Giám thị coi thi, giám sát thí sinh, đảm bảo an toàn và không gian thi công bằng. |
+| 1 | Thí sinh được phép mang những vật dụng gì vào phòng thi? | Gồm: Bút viết, thước kẻ, bút chì, tẩy chì, êke, thước vẽ đồ thị, dụng cụ vẽ hình, máy tính cầm tay (không soạn thảo văn bản/thẻ nhớ), Atlat Địa lý (đối với môn Địa). |
+| 2 | Việc sử dụng điện thoại và internet tại Điểm thi được quy định thế nào? (Metadata filter: `category="quy_dinh_chung"`) | Bố trí 01 điện thoại để ở phòng làm việc chung (chỉ dùng nghe gọi, bật loa ngoài, có ghi nhật ký). Máy tính chỉ được nối internet khi báo cáo nhanh. |
+| 3 | Điểm liệt trong xét công nhận tốt nghiệp THPT là bao nhiêu điểm? | Thí sinh bị điểm liệt nếu có bài thi (hoặc môn thi thành phần) đạt từ 1,0 điểm trở xuống (tất cả phải trên 1,0 mới đạt). |
+| 4 | Mỗi bài thi tự luận được chấm bao nhiêu vòng và do ai thực hiện? | Chấm hai vòng độc lập bởi hai Cán bộ chấm thi (CBChT) của hai Tổ Chấm thi khác nhau. |
+| 5 | Thời hạn nhận đơn phúc khảo bài thi là bao nhiêu ngày kể từ ngày công bố điểm? | Trong thời hạn 10 ngày kể từ ngày công bố điểm thi. |
 
 ### Kết quả của tôi
 
 | # | Query | Top-3 Retrieved Docs | Top-1 Score | At least 1 relevant in top-3? |
 |---|-------|----------------------|-------------|-----------------------------|
-| 1 | Quy định chung về thi cử là gì? | 09_cham_thi.md, 01_quy_dinh_chung.md, 08_coi_thi.md | 0.479 | Yes |
-| 2 | Trách nhiệm của thí sinh trong kỳ thi? | 10_phuc_khao_tot_nghiep.md, 06_cong_tac_de_thi.md (x2) | 0.343 | No |
-| 3 | Cách chấm thi như thế nào? | 09_cham_thi.md, 10_phuc_khao_tot_nghiep.md (x2) | 0.348 | Yes |
-| 4 | Điều kiện để phúc khảo bài thi? | 10_phuc_khao_tot_nghiep.md (x2), 09_cham_thi.md | 0.288 | Yes |
-| 5 | Công tác coi thi được quy định ra sao? | 10_phuc_khao_tot_nghiep.md, 02_ban_chi_dao_hoi_dong.md, 01_quy_dinh_chung.md | 0.347 | Partly |
+| 1 | Thí sinh được phép mang những vật dụng gì vào phòng thi? | 10_phuc_khao_tot_nghiep.md (x2), 09_cham_thi.md | 0.346 | No |
+| 2 | Việc sử dụng điện thoại và internet tại Điểm thi được quy định thế nào? (Metadata filter: `category="quy_dinh_chung"`) | 01_quy_dinh_chung.md (x3) | 0.292 | Yes |
+| 3 | Điểm liệt trong xét công nhận tốt nghiệp THPT là bao nhiêu điểm? | 06_cong_tac_de_thi.md, 02_ban_chi_dao_hoi_dong.md, 10_phuc_khao_tot_nghiep.md | 0.326 | No |
+| 4 | Mỗi bài thi tự luận được chấm bao nhiêu vòng và do ai thực hiện? | 06_cong_tac_de_thi.md, 02_ban_chi_dao_hoi_dong.md, 10_phuc_khao_tot_nghiep.md | 0.317 | No |
+| 5 | Thời hạn nhận đơn phúc khảo bài thi là bao nhiêu ngày kể từ ngày công bố điểm? | 06_cong_tac_de_thi.md, 03_diem_thi_phong_thi.md, 10_phuc_khao_tot_nghiep.md | 0.337 | Yes |
 
-**Bao nhiêu queries trả về chunk relevant trong top-3?** 3 / 5
+**Bao nhiêu queries trả về chunk relevant trong top-3?** 2 / 5
 
 ### Nhận xét tổng quan
 
@@ -223,12 +223,12 @@ Chạy 5 benchmark queries của nhóm trên implementation cá nhân của bạ
 
 ### Failure Analysis
 
-**Query thất bại:** Query 2 "Trách nhiệm của thí sinh trong kỳ thi?".
+**Query thất bại:** Query 1, 3, 4. Ví dụ: "Thí sinh được phép mang những vật dụng gì vào phòng thi?"
 
 **Tại sao thất bại?**
-- Top-3 không tập trung vào tài liệu chuyên biệt về trách nhiệm thí sinh, mà ưu tiên các tài liệu chung về phúc khảo và công tác đề thi.
-- Do `SentenceChunker` tạo chunks theo câu, nên một số chunk dài đã chứa nội dung lẫn lộn, làm similarity với query không đủ sắc nét.
-- Metadata filter chưa được dùng, nên search chỉ dựa trên embedding mà không tận dụng category chi tiết.
+- Top-3 trả về các tài liệu liên quan đến phúc khảo (`10_phuc_khao_tot_nghiep.md`) hay chấm thi thay vì quy chế phòng thi chi tiết.
+- Do `SentenceChunker` tạo chunks theo câu, nên một số chunk dài chứa nội dung lẫn lộn hoặc điểm chung chung về "điểm thi", khiến similarity với query cụ thể không sắc nét.
+- Từ khóa chuyên biệt như "điểm liệt", "tự luận" không bắt cặp tốt với dot product của Mock Embedding.
 
 **Đề xuất cải thiện:**
 - Thêm metadata `doc_name` hoặc `section` để filter trước khi search.

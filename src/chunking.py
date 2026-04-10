@@ -129,17 +129,17 @@ class ChunkingStrategyComparator:
 
     def compare(self, text: str, chunk_size: int = 200) -> dict:
         strategies = {
-            "FixedSizeChunker": FixedSizeChunker(chunk_size=chunk_size),
-            "SentenceChunker": SentenceChunker(max_sentences_per_chunk=3),
-            "RecursiveChunker": RecursiveChunker(chunk_size=chunk_size)
+            "fixed_size": FixedSizeChunker(chunk_size=chunk_size),
+            "by_sentences": SentenceChunker(max_sentences_per_chunk=3),
+            "recursive": RecursiveChunker(chunk_size=chunk_size)
         }
         
         results = {}
         for name, chunker in strategies.items():
             chunks = chunker.chunk(text)
             results[name] = {
-                "num_chunks": len(chunks),
-                "avg_chunk_length": sum(len(c) for c in chunks) / len(chunks) if chunks else 0,
+                "count": len(chunks),
+                "avg_length": sum(len(c) for c in chunks) / len(chunks) if chunks else 0,
                 "chunks": chunks
             }
         return results

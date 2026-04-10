@@ -36,11 +36,11 @@ agent = KnowledgeBaseAgent(store, mock_llm)
 
 # Benchmark queries
 queries = [
-    "Quy định chung về thi cử là gì?",
-    "Trách nhiệm của thí sinh trong kỳ thi?",
-    "Cách chấm thi như thế nào?",
-    "Điều kiện để phúc khảo bài thi?",
-    "Công tác coi thi được quy định ra sao?"
+    "Thí sinh được phép mang những vật dụng gì vào phòng thi?",
+    "Việc sử dụng điện thoại và internet tại Điểm thi được quy định thế nào? (Metadata filter: `category=\"quy_dinh_chung\"`)",
+    "Điểm liệt trong xét công nhận tốt nghiệp THPT là bao nhiêu điểm?",
+    "Mỗi bài thi tự luận được chấm bao nhiêu vòng và do ai thực hiện?",
+    "Thời hạn nhận đơn phúc khảo bài thi là bao nhiêu ngày kể từ ngày công bố điểm?"
 ]
 
 print("=== Benchmark Results ===")
